@@ -21,12 +21,20 @@ public class MyResourceSecurityConfig extends ResourceServerConfigurerAdapter {
 
     @Override
     public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
-        resources.tokenStore(tokenStore());
+        resources.tokenServices(tokenService());
+    }
+
+    @Bean
+    public MyTokenService tokenService() {
+        MyTokenService tokenService = new MyTokenService();
+        tokenService.setTokenStore(tokenStore());
+        return tokenService;
     }
 
     @Bean
     public TokenStore tokenStore() {
-        return new JwtTokenStore(tokenConvert());
+        JwtTokenStore tokenStore = new JwtTokenStore(tokenConvert());
+        return tokenStore;
     }
 
     @Bean

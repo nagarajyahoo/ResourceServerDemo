@@ -1,5 +1,6 @@
 package com.example.resserver.api;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +15,7 @@ import javax.ws.rs.core.MediaType;
 public class HomeController {
     @GetMapping
     @Produces(MediaType.APPLICATION_JSON)
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     public Authentication getDetails() {
         return SecurityContextHolder.getContext().getAuthentication();
     }
