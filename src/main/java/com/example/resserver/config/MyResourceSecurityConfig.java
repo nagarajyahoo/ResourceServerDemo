@@ -52,7 +52,9 @@ public class MyResourceSecurityConfig extends ResourceServerConfigurerAdapter {
     public void configure(HttpSecurity http) throws Exception {
         //@formatter:off
         http.authorizeRequests()
-            .anyRequest().authenticated().and()
+                .antMatchers("/token").permitAll()
+                .antMatchers("/api/**").authenticated()
+                .and()
             .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
